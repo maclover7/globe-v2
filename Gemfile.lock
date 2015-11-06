@@ -27,9 +27,6 @@ GEM
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
     coderay (1.1.0)
-    committee (1.12.0)
-      json_schema (~> 0.6, >= 0.6.1)
-      rack (~> 1.5)
     database_cleaner (1.5.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -128,7 +125,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  committee
   database_cleaner
   dotenv
   multi_json

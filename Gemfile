@@ -24,7 +24,6 @@ end
 
 group :test do
   gem "simplecov", require: false
-  gem "committee"
   gem "database_cleaner"
   gem "dotenv"
   gem "rack-test"
