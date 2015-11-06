@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 ruby "2.2.3"
 
+gem "httparty"
 gem "multi_json"
 gem "oj"
 gem "pg"
@@ -28,4 +29,5 @@ group :test do
   gem "dotenv"
   gem "rack-test"
   gem "rspec"
+  gem "webmock"
 end
