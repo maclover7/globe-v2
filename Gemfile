@@ -27,6 +27,8 @@ group :test do
   gem "simplecov", require: false
   gem "database_cleaner"
   gem "dotenv"
+  gem "factory_girl"
+  gem "faker"
   gem "rack-test"
   gem "rspec"
   gem "webmock"

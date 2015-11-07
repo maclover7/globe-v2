@@ -14,8 +14,10 @@ module Endpoints
           MultiJson.dump({})
         else
           # Return new User
+          @user = User.create(email: @json_user_info['email'], name: @json_user_info['name'])
+          sz = Serializers::User.new(:default)
           status 201
-          MultiJson.dump({})
+          MultiJson.dump(sz.serialize(@user))
         end
       end
 

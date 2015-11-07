@@ -6,11 +6,14 @@ Bundler.require(:default, :test)
 Dotenv.load('.env.test')
 
 require_relative "../lib/initializer"
+require_relative "factories"
 
 # pull in test initializers
 Pliny::Utils.require_glob("#{Config.root}/spec/support/**/*.rb")
 
 RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+
   config.before :suite do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction

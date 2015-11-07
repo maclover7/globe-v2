@@ -16,7 +16,12 @@ describe Endpoints::Users do
 
       it "returns correct http body" do
         post "users", { "auth_code" => "good" }
-        expect(last_response.body).to eq("{}")
+        json = MultiJson.load(last_response.body)
+        expect(json['created_at']).to_not eq(nil)
+        expect(json['email']).to eq('hi@hi.com')
+        expect(json['id']).to_not eq(nil)
+        expect(json['name']).to eq('hi')
+        expect(json['updated_at']).to_not eq(nil)
       end
     end
 

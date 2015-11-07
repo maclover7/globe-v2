@@ -24,14 +24,14 @@ def stub_google_oauth_requests
 
   # User info request (Bad request)
   stub_request(:get, "https://www.googleapis.com/oauth2/v1/userinfo?access_token=bad!").to_return(
-    body: '{"hd":"testy2.org"}',
+    body: '{"email":"hi@hi.com", "hd":"testy2.org", "name":"hi"}',
     status: 200,
     headers: { 'Content-Type' => 'application/json' }
   )
 
   # User info request (Good request)
   stub_request(:get, "https://www.googleapis.com/oauth2/v1/userinfo?access_token=good!").to_return(
-    body: '{"hd":"testy.org"}',
+    body: '{"email":"hi@hi.com", "hd":"testy.org", "name":"hi"}',
     status: 200,
     headers: { 'Content-Type' => 'application/json' }
   )
