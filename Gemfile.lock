@@ -7,6 +7,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     backports (3.6.7)
     byebug (8.0.0)
     celluloid (0.17.2)
@@ -27,19 +28,30 @@ GEM
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
     coderay (1.1.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     database_cleaner (1.5.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
     dotenv (2.0.2)
     erubis (2.7.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    faker (1.5.0)
+      i18n (~> 0.5)
+    hashdiff (0.2.3)
     hitimes (1.2.3)
     http_accept (0.1.6)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.3)
     json_schema (0.7.1)
     method_source (0.8.2)
     minitest (5.8.2)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
     oj (2.13.0)
     pg (0.18.3)
     pliny (0.13.0)
@@ -86,6 +98,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
+    safe_yaml (1.0.4)
     sequel (4.28.0)
     sequel-paranoid (0.6.1)
       sequel
@@ -120,6 +133,10 @@ GEM
       hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    webmock (1.22.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
 
 PLATFORMS
   ruby
@@ -127,6 +144,9 @@ PLATFORMS
 DEPENDENCIES
   database_cleaner
   dotenv
+  factory_girl
+  faker
+  httparty
   multi_json
   oj
   pg
@@ -147,6 +167,7 @@ DEPENDENCIES
   sinatra-contrib
   sinatra-router
   sucker_punch
+  webmock
 
 BUNDLED WITH
    1.10.6
