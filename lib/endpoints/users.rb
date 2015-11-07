@@ -9,7 +9,6 @@ module Endpoints
         get_user_info
 
         # Check to make sure user doesn't already exist and has valid GA domain
-        puts "hd=#{@json_user_info['hd']}"
         if @json_user_info['hd'] != ENV['GOOGLE_OAUTH_DOMAIN']
           status 401
           MultiJson.dump({})

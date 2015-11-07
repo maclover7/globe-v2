@@ -10,26 +10,24 @@ describe Endpoints::Users do
 
     context "valid Google Apps custom domain (hd)" do
       it "returns http 201" do
-        post "users", { "auth_code" => "hi" }
+        post "users", { "auth_code" => "good" }
         expect(last_response.status).to eq(201)
       end
 
       it "returns correct http body" do
-        post "users", { "auth_code" => "hi" }
+        post "users", { "auth_code" => "good" }
         expect(last_response.body).to eq("{}")
       end
     end
 
     context "invalid Google Apps custom domain (hd)" do
       it "returns http 401" do
-        post "users", { "auth_code" => "hi" }
-        # this should be returning 201, but isn't
-        # for some reason, the second hd body isn't being triggered
+        post "users", { "auth_code" => "bad" }
         expect(last_response.status).to eq(401)
       end
 
       it "returns correct http body" do
-        post "users", { "auth_code" => "hi" }
+        post "users", { "auth_code" => "bad" }
         expect(last_response.body).to eq("{}")
       end
     end
