@@ -1,0 +1,12 @@
+Style/Documentation:
+  Enabled: false
+Style/ExtraSpacing:
+  Enabled: false
+Style/LineLength:
+  Max: 145
+Style/MethodLength:
+  Max: 25
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
+Style/SymbolProc:
+  Enabled: false

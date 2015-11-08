@@ -1,3 +1,1 @@
-if Config.timeout > 0
-  Rack::Timeout.timeout = Config.timeout
-end
+Rack::Timeout.timeout = Config.timeout if Config.timeout > 0
