@@ -2,6 +2,8 @@ Style/Documentation:
   Enabled: false
 Style/ExtraSpacing:
   Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/LineLength:
   Max: 145
 Style/MethodLength:

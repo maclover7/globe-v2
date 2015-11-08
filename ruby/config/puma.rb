@@ -8,7 +8,7 @@ workers Config.puma_workers
 
 on_worker_boot do
   # force Sequel's thread pool to be refreshed
-  Sequel::DATABASES.each & :disconnect
+  Sequel::DATABASES.each { |db| db.disconnect }
 end
 preload_app!
 Thread.abort_on_exception = true
