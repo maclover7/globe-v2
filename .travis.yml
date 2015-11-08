@@ -1,5 +1,14 @@
 language: ruby
-before_script: cd ruby && bundle exec rake db:create db:schema:load db:migrate
+before_script:
+  - cd ruby
+  - bundle install
+  - bundle exec rake db:create db:schema:load db:migrate
+script:
+  - cd ../
+  - gem install rake
+  - rake app:test
+
+# ADDONS / RVM
 rvm:
   - 2.2.3
 addons:
