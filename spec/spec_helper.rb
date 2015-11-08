@@ -1,12 +1,12 @@
-ENV["RACK_ENV"] = "test"
+ENV['RACK_ENV'] = 'test'
 
-require "bundler"
-require "dotenv"
+require 'bundler'
+require 'dotenv'
 Bundler.require(:default, :test)
 Dotenv.load('.env.test')
 
-require_relative "../lib/initializer"
-require_relative "factories"
+require_relative '../lib/initializer'
+require_relative 'factories'
 
 # pull in test initializers
 Pliny::Utils.require_glob("#{Config.root}/spec/support/**/*.rb")
@@ -33,6 +33,6 @@ RSpec.configure do |config|
 
   # the rack app to be tested with rack-test:
   def app
-    @rack_app || fail("Missing @rack_app")
+    @rack_app || fail('Missing @rack_app')
   end
 end

@@ -7,7 +7,7 @@ module Initializer
   end
 
   def self.require_config
-    require_relative "../config/config"
+    require_relative '../config/config'
   end
 
   def self.require_lib

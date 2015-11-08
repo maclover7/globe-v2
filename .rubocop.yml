@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - bin/run
+    - lib/endpoints/base.rb
+    - lib/mediators/base.rb
+    - lib/serializers/base.rb
+    - spec/support/log.rb
+
+inherit_from: .rubocop_todo.yml
