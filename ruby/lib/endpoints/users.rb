@@ -8,12 +8,18 @@ module Endpoints
         fetch_token
         fetch_user_info
 
-        # Check to make sure user doesn't already exist and has valid GA domain
+        # Check to make sure user has valid GA domain
         if @json_user_info['hd'] != ENV['GOOGLE_OAUTH_DOMAIN']
           status 401
           MultiJson.dump({})
+        # Check to make sure user doesn't already exist
+        elsif User.where(email: @json_user_info['email']).any?
+          @user = User.find(email: @json_user_info['email'])
+          sz = Serializers::User.new(:default)
+          status 200
+          MultiJson.dump(sz.serialize(@user))
+        # Return new User
         else
-          # Return new User
           @user = User.create(email: @json_user_info['email'], name: @json_user_info['name'])
           sz = Serializers::User.new(:default)
           status 201

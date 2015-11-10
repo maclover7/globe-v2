@@ -8,10 +8,31 @@ describe Endpoints::Users do
       stub_google_oauth_requests
     end
 
-    context 'valid Google Apps custom domain (hd)' do
+    context 'valid Google Apps custom domain (hd) and no pre-existing user' do
       it 'returns http 201' do
         post 'users', 'auth_code' => 'good'
         expect(last_response.status).to eq(201)
+      end
+
+      it 'returns correct http body' do
+        post 'users', 'auth_code' => 'good'
+        json = MultiJson.load(last_response.body)
+        expect(json['created_at']).to_not eq(nil)
+        expect(json['email']).to eq('hi@hi.com')
+        expect(json['id']).to_not eq(nil)
+        expect(json['name']).to eq('hi')
+        expect(json['updated_at']).to_not eq(nil)
+      end
+    end
+
+    context 'valid Google Apps custom domain (hd) and pre-existing user' do
+      before do
+        User.create(email: 'hi@hi.com', name: 'hi')
+      end
+
+      it 'returns http 200' do
+        post 'users', 'auth_code' => 'good'
+        expect(last_response.status).to eq(200)
       end
 
       it 'returns correct http body' do
