@@ -3,6 +3,41 @@ require 'spec_helper'
 describe Endpoints::Users do
   include Rack::Test::Methods
 
+  describe 'GET /users' do
+    context 'valid user' do
+      before do
+        @user = FactoryGirl.create(:user)
+      end
+
+      it 'returns http 200' do
+        get "/users/#{@user.id}"
+        expect(last_response.status).to eq(200)
+      end
+
+      it 'returns correct http body' do
+        get "/users/#{@user.id}"
+        json = MultiJson.load(last_response.body)
+        expect(json['created_at']).to_not eq(nil)
+        expect(json['email']).to eq(@user.email)
+        expect(json['id']).to eq(@user.id)
+        expect(json['name']).to eq(@user.name)
+        expect(json['updated_at']).to_not eq(nil)
+      end
+    end
+
+    context 'invalid user' do
+      it 'returns http 404' do
+        get '/users/bb7e8fa3-49c9-4dd0-9346-d03f8300422c'
+        expect(last_response.status).to eq(404)
+      end
+
+      it 'returns correct http body' do
+        get '/users/bb7e8fa3-49c9-4dd0-9346-d03f8300422c'
+        expect(last_response.body).to eq('{}')
+      end
+    end
+  end
+
   describe 'POST /users' do
     before :each do
       stub_google_oauth_requests

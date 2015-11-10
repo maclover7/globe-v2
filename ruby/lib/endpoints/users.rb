@@ -3,6 +3,19 @@ module Endpoints
     namespace '/users' do
       before { content_type :json, charset: 'utf-8' }
 
+      ## GET /users/:id
+      get '/:id' do
+        @user = User.find(id: params['id'])
+        if @user
+          sz = Serializers::User.new(:default)
+          status 200
+          MultiJson.dump(sz.serialize(@user))
+        else
+          status 404
+          MultiJson.dump({})
+        end
+      end
+
       ## POST /users
       post do
         fetch_token
