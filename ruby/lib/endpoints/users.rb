@@ -32,7 +32,7 @@ module Endpoints
             client_secret: ENV['GOOGLE_OAUTH_SECRET'],
             code: params['auth_code'],
             grant_type: 'authorization_code',
-            redirect_uri: 'http://localhost:5000/login'
+            redirect_uri: 'http://localhost:4200/'
           }
         )
 
@@ -42,7 +42,7 @@ module Endpoints
 
       def fetch_user_info
         # Get user information via OAuth token from Google
-        user_info_response = HTTParty.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token=#{@access_token}")
+        user_info_response = HTTParty.get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=#{@access_token}")
         @json_user_info = MultiJson.load(user_info_response.body)
       end
     end
