@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import config from '../config/environment';
 
 let { run, $ } = Ember;
 
@@ -13,7 +12,7 @@ export default Ember.Object.extend({
       if (!sessionId) {
         reject('Not logged in');
       } else {
-        let userUrl = config.authenticationHost + '/users/' + sessionId;
+        let userUrl = '/users/' + sessionId;
 
         $.get(userUrl).done(userData => {
           run(null, resolve, userData);
