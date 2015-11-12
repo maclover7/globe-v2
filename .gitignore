@@ -17,6 +17,8 @@
 
 
 ## RUBY
+/.env
+/ember/.env
 /ruby/.env
 
 ## MISC

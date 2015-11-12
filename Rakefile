@@ -2,7 +2,7 @@ require 'rake'
 
 namespace :app do
   task :run do
-    EMBER_PID = Process.spawn('cd ember && ./node_modules/.bin/ember serve --port=4200')
+    EMBER_PID = Process.spawn('cd ember && ./node_modules/.bin/ember serve --port=4200 --proxy=http://localhost:5000')
     RAILS_PID = Process.spawn('cd ruby && bundle exec puma --config config/puma.rb config.ru')
 
     trap 'INT' do

@@ -3,17 +3,36 @@ module Endpoints
     namespace '/users' do
       before { content_type :json, charset: 'utf-8' }
 
+      ## GET /users/:id
+      get '/:id' do
+        @user = User.find(id: params['id'])
+        if @user
+          sz = Serializers::User.new(:default)
+          status 200
+          MultiJson.dump(sz.serialize(@user))
+        else
+          status 404
+          MultiJson.dump({})
+        end
+      end
+
       ## POST /users
       post do
         fetch_token
         fetch_user_info
 
-        # Check to make sure user doesn't already exist and has valid GA domain
+        # Check to make sure user has valid GA domain
         if @json_user_info['hd'] != ENV['GOOGLE_OAUTH_DOMAIN']
           status 401
           MultiJson.dump({})
+        # Check to make sure user doesn't already exist
+        elsif User.where(email: @json_user_info['email']).any?
+          @user = User.find(email: @json_user_info['email'])
+          sz = Serializers::User.new(:default)
+          status 200
+          MultiJson.dump(sz.serialize(@user))
+        # Return new User
         else
-          # Return new User
           @user = User.create(email: @json_user_info['email'], name: @json_user_info['name'])
           sz = Serializers::User.new(:default)
           status 201
@@ -32,7 +51,7 @@ module Endpoints
             client_secret: ENV['GOOGLE_OAUTH_SECRET'],
             code: params['auth_code'],
             grant_type: 'authorization_code',
-            redirect_uri: 'http://localhost:5000/login'
+            redirect_uri: 'http://localhost:4200/'
           }
         )
 
@@ -42,7 +61,7 @@ module Endpoints
 
       def fetch_user_info
         # Get user information via OAuth token from Google
-        user_info_response = HTTParty.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token=#{@access_token}")
+        user_info_response = HTTParty.get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=#{@access_token}")
         @json_user_info = MultiJson.load(user_info_response.body)
       end
     end

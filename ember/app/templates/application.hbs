@@ -1,3 +1,14 @@
 <h2 id="title">Welcome to Ember</h2>
 
+{{#if session.isAuthenticated}}
+  <p>Logged in as <b>{{session.currentUser.email}}</b>.</p>
+  <p>
+    <button {{action 'signOut'}}>Sign out</button>
+  </p>
+{{else}}
+  <button {{action 'signIn'}} disabled={{session.isWorking}}>
+    Sign in with Google
+  </button>
+{{/if}}
+
 {{outlet}}
