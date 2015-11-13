@@ -47,6 +47,8 @@ export default Ember.Object.extend({
       // persist authentication state
       localStorage.setItem(storageKey, userData.id);
 
+      alert('Authentication successful!');
+
       // This will get merged onto the session's currentUser property
       return { currentUser: userData };
     });

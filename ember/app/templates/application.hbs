@@ -1,14 +1,42 @@
-<h2 id="title">Welcome to Ember</h2>
+<!-- NAVIGATION BAR -->
 
-{{#if session.isAuthenticated}}
-  <p>Logged in as <b>{{session.currentUser.email}}</b>.</p>
-  <p>
-    <button {{action 'signOut'}}>Sign out</button>
-  </p>
-{{else}}
-  <button {{action 'signIn'}} disabled={{session.isWorking}}>
-    Sign in with Google
-  </button>
-{{/if}}
+<nav class="navbar navbar-static-top navbar-default" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">
+        <span class="glyphicon glyphicon-globe"></span> Globe
+      </a>
+    </div>
 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li> <a href="/"> Home</a> </li>
+        {{#if session.isAuthenticated}}
+          <!--<li> <%= link_to "Quiz Center", quiz_center_path %> </li>-->
+          <li>
+            <a {{action 'signOut'}}>
+              Sign out
+            </a>
+          </li>
+        {{else}}
+          <li>
+            <a {{action 'signIn'}} disabled={{session.isWorking}}>
+              Sign in with Google
+            </a>
+          </li>
+        {{/if}}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+<!-- MAIN OUTLET -->
 {{outlet}}
