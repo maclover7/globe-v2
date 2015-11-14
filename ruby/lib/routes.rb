@@ -15,6 +15,7 @@ Routes = Rack::Builder.new do
 
   use Pliny::Router do
     # mount all endpoints here
+    mount Endpoints::Courses
     mount Endpoints::Users
   end
 
