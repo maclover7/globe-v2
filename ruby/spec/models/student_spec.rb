@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe Course do
+describe Student do
 end

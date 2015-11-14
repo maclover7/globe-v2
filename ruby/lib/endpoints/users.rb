@@ -33,7 +33,12 @@ module Endpoints
           MultiJson.dump(sz.serialize(@user))
         # Return new User
         else
-          @user = User.create(email: @json_user_info['email'], name: @json_user_info['name'])
+          # Check see if user's email contains numbers (means it's a student!)
+          if @json_user_info['email'] =~ /\d/
+            @user = Student.create(email: @json_user_info['email'], name: @json_user_info['name'])
+          else
+            @user = Teacher.create(email: @json_user_info['email'], name: @json_user_info['name'])
+          end
           sz = Serializers::User.new(:default)
           status 201
           MultiJson.dump(sz.serialize(@user))
