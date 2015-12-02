@@ -5,6 +5,7 @@ module Endpoints
 
       ## GET /users/:id
       get '/:id' do
+        authorize_user
         @user = User.find(id: params['id'])
         if @user
           sz = Serializers::User.new(:default)
@@ -35,10 +36,12 @@ module Endpoints
         else
           # Check see if user's email contains numbers (means it's a student!)
           if @json_user_info['email'] =~ /\d/
-            @user = Student.create(email: @json_user_info['email'], name: @json_user_info['name'])
+            @user = Student.new(email: @json_user_info['email'], name: @json_user_info['name'])
           else
-            @user = Teacher.create(email: @json_user_info['email'], name: @json_user_info['name'])
+            @user = Teacher.new(email: @json_user_info['email'], name: @json_user_info['name'])
           end
+          @user.token = SecureRandom.base64(24)
+          @user.save
           sz = Serializers::User.new(:default)
           status 201
           MultiJson.dump(sz.serialize(@user))

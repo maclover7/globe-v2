@@ -25,7 +25,7 @@ namespace :app do
     system 'cd ember && ember test'
     # Ruby
     puts 'Testing Ruby...'
-    system('cd ruby && rake')
+    system('cd ruby && bundle exec rake')
     puts 'Done testing...!'
   end
 end

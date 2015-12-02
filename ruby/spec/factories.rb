@@ -9,5 +9,6 @@ FactoryGirl.define do
   factory :user, class: User do
     sequence(:email) { Faker::Internet.email }
     sequence(:name) { Faker::Name.first_name }
+    sequence(:token) { SecureRandom.base64(24) }
   end
 end

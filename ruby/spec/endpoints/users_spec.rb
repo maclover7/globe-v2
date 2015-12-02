@@ -10,12 +10,12 @@ describe Endpoints::Users do
       end
 
       it 'returns http 200' do
-        get "/users/#{@user.id}"
+        get "/users/#{@user.id}", user_auth_token: @user.token
         expect(last_response.status).to eq(200)
       end
 
       it 'returns correct http body' do
-        get "/users/#{@user.id}"
+        get "/users/#{@user.id}", user_auth_token: @user.token
         json = MultiJson.load(last_response.body)
         expect(json['created_at']).to_not eq(nil)
         expect(json['email']).to eq(@user.email)
@@ -26,13 +26,17 @@ describe Endpoints::Users do
     end
 
     context 'invalid user' do
+      before do
+        @user = FactoryGirl.create(:user)
+      end
+
       it 'returns http 404' do
-        get '/users/bb7e8fa3-49c9-4dd0-9346-d03f8300422c'
+        get '/users/bb7e8fa3-49c9-4dd0-9346-d03f8300422c', user_auth_token: @user.token
         expect(last_response.status).to eq(404)
       end
 
       it 'returns correct http body' do
-        get '/users/bb7e8fa3-49c9-4dd0-9346-d03f8300422c'
+        get '/users/bb7e8fa3-49c9-4dd0-9346-d03f8300422c', user_auth_token: @user.token
         expect(last_response.body).to eq('{}')
       end
     end

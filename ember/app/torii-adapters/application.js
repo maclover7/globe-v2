@@ -2,12 +2,13 @@ import Ember from 'ember';
 
 let { run, $ } = Ember;
 
-let storageKey = 'torii-user-session-id';
+let userIDStorageKey = 'torii-user-session-id';
+let userTokenStorageKey = 'torii-user-token';
 
 export default Ember.Object.extend({
   fetch() {
     return new Ember.RSVP.Promise((resolve, reject) => {
-      let sessionId = localStorage.getItem(storageKey);
+      let sessionId = localStorage.getItem(userIDStorageKey);
 
       if (!sessionId) {
         reject('Not logged in');
@@ -17,7 +18,8 @@ export default Ember.Object.extend({
         $.get(userUrl).done(userData => {
           run(null, resolve, userData);
         }).fail(err => {
-          localStorage.removeItem(storageKey);
+          localStorage.removeItem(userIDStorageKey);
+          localStorage.removeItem(userTokenStorageKey);
           run(null, reject, err);
         });
       }
@@ -45,7 +47,8 @@ export default Ember.Object.extend({
       });
     }).then(userData => {
       // persist authentication state
-      localStorage.setItem(storageKey, userData.id);
+      localStorage.setItem(userIDStorageKey, userData.id);
+      localStorage.setItem(userTokenStorageKey, userData.token);
 
       alert('Authentication successful!');
 
@@ -56,7 +59,8 @@ export default Ember.Object.extend({
 
   close() {
     return new Ember.RSVP.Promise((resolve) => {
-      localStorage.removeItem(storageKey);
+      localStorage.removeItem(userIDStorageKey);
+      localStorage.removeItem(userTokenStorageKey);
 
       resolve();
     });

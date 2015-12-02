@@ -19,5 +19,16 @@ module Endpoints
     error Sinatra::NotFound do
       raise Pliny::Errors::NotFound
     end
+
+    def authorize_user
+      @current_user = User.find(token: params['user_auth_token'])
+
+      if @current_user.nil?
+        status 401
+        MultiJson.dump({})
+      else
+        return @current_user
+      end
+    end
   end
 end
